@@ -13,7 +13,7 @@
   .container{max-width:1100px; margin:0 auto; padding:24px;}
   header{display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:18px}
   .brand{display:flex; gap:12px; align-items:center}
-  .logo-img{height:50px; border-radius:8px;}
+  .logo{width:60px;height:60px;border-radius:12px;background:#fff; display:grid; place-items:center;}
   h1{font-size:22px; margin:0}
   .grid{display:grid; grid-template-columns:1fr; gap:16px}
   @media (min-width:960px){.grid{grid-template-columns:2fr 1fr}}
@@ -23,7 +23,7 @@
   @media (min-width:680px){.products{grid-template-columns:repeat(2,1fr)}}
   .prod{display:flex; gap:14px; padding:14px; border:1px solid var(--border); border-radius:16px; align-items:center; background:#fff; transition:all 0.2s;}
   .prod:hover{background:#f6eaea;}
-  .thumb{width:64px;height:64px;border-radius:12px;background:#e0d7ce; flex:0 0 64px; display:grid; place-items:center; font-size:22px; color:#3e3e3e; overflow:hidden}
+  .thumb{width:64px;height:64px;border-radius:12px;background:#e0d7ce; flex:0 0 64px; overflow:hidden;}
   .thumb img{width:100%; height:100%; object-fit:cover; border-radius:12px;}
   .prod h3{margin:0 0 6px 0; font-size:16px}
   .muted{color:var(--muted); font-size:13px}
@@ -54,7 +54,9 @@
 <div class="container">
 <header>
   <div class="brand">
-    <img src="imagens/logo.png" alt="Logo" class="logo-img">
+    <div class="logo" aria-hidden="true">
+      <img src="imagens/logo.png" alt="Logo da Confeitaria" />
+    </div>
     <div>
       <h1 id="storeName">Confeitaria Um Doce de Doce</h1>
       <div class="muted mini">Com envio para WhatsApp</div>
@@ -109,43 +111,54 @@
 <script>
 const STORE={name:'Confeitaria Um Doce de Doce',phone:'5511997656674',currency:{locale:'pt-BR',code:'BRL'}};
 const PRODUCTS=[
-    { category: "Bebidas", name: "Água sem Gás 500ml", price: 6.00, image: "imagens/agua.jpg" },
-    { category: "Bebidas", name: "Água com Gás 500ml", price: 6.00, image: "imagens/agua_gas.jpg" },
-    { category: "Bebidas", name: "Coca-Cola 350ml", price: 7.10, image: "imagens/coca_cola.jpg" },
-    { category: "Bebidas", name: "Coca-Cola Zero 350ml", price: 7.10, image: "imagens/coca_cola_zero.jpg" },
-    { category: "Bebidas", name: "Guaraná 350ml", price: 7.10, image: "imagens/guarana.jpg" },
-    { category: "Bebidas", name: "Suco Lata 265ml", price: 7.80, image: "imagens/suco_lata_265.jpg" },
-    { category: "Bebidas", name: "Suco Lata 290ml", price: 9.00, image: "imagens/suco_lata_290.jpg" },
-    { category: "Cafés / Chás", name: "Expresso", price: 8.00, image: "imagens/expresso.jpg" },
-    { category: "Cafés / Chás", name:'Café com Leite', price:9.60, image: "imagens/cafe_leite.jpg" },
-    { category: "Cafés / Chás", name:'Capuccino', price:15.00, image: "imagens/capuccino.jpg" },
-    { category: "Cafés / Chás", name:'Chá Quente', price:7.60, image: "imagens/cha.jpg" },
-    { category: "Bolos", name:'Bolo Caseiro Fatia', price:8.70, image: "imagens/caseiro_fatia.jpg" },
-    { category: "Bolos", name:'Bolo Confeitado Fatia', price:19.80, image: "imagens/confeitado_fatia.jpg" },
-    { category: "Bolos", name:'Bolo no Pote', price:18.00, image: "imagens/bolo_pote.jpg" },
-    { category: "Salgados", name:'Mini Pão de Queijo (4 unids)', price:9.60, image: "imagens/pao_queijo.jpg" },
-    { category: "Salgados", name:'Panini (4 unids)', price:16.20, image: "imagens/panini.jpg" },
-    { category: "Salgados", name:'Quiche de Cebola Carmelizada', price:23.10, image: "imagens/quiche_cebola.jpg" },
-    { category: "Salgados", name:'Quiche Caprese', price:23.10, image: "imagens/quiche_caprese.jpg" },
-    { category: "Salgados", name:'Croissant com Presunto e Queijo', price:23.10, image: "imagens/croissant_presunto.jpg" },
-    { category: "Salgados", name:'Croissant com Queijo Branco e Tomate Confit', price:26.00, image: "imagens/croissant_queijo_branco.jpg" },
-    { category: "Doces", name:'Croissant com Nutella', price:24.00, image: "imagens/croissant_nutella.jpg" },
-    { category: "Doces", name:'Pão de Mel', price:9.00, image: "imagens/pao_mel.jpg" },
-    { category: "Doces", name:'Palha Italiana', price:9.00, image: "imagens/palha.jpg" },
-    { category: "Doces", name:'Brownie', price:9.00, image: "imagens/brownie.jpg" },
-    { category: "Doces", name:'Suspiro (Pacote 40g)', price:15.20, image: "imagens/suspiro.jpg" },
-    { category: "Doces", name:'Rosa de Suspiro Recheada com Brigadeiro', price:8.00, image: "imagens/rosa.jpg" }
-
-
+  { id: "agua-sem-gas", name:'Água sem Gás 500ml', price:6.00, image: "imagens/agua.jpg" },
+  { id: "agua-com-gas", name:'Água com Gás 500ml', price: 6.00, image: "imagens/agua_gas.jpg" },
+  { id:'coca', name:'Coca-Cola 350ml', price:7.10, image: "imagens/coca_cola.jpg" },
+  { id: "coca-zero", name:'Coca-Cola Zero 350ml', price:7.10, image: "imagens/coca_cola_zero.jpg" },
+  { id:'guarana', name:'Guaraná 350ml', price:7.10, image: "imagens/guarana.jpg" },
+  { id:'suco-265', name:'Suco Lata 265ml', price: 7.80, image: "imagens/suco_lata_265.jpg" },
+  { id:'suco-290', name:'Suco Lata 290ml', price:9.00, image: "imagens/suco_lata_290.jpg" },
+  { id:'cafe-expresso', name:'Café Expresso', price:8.70, image: "imagens/expresso.jpg" },
+  { id:'cafe-leite', name:'Café com Leite', price:9.60, image: "imagens/cafe_leite.jpg" },
+  { id:'capuccino', name:'Capuccino', price:15.00, image: "imagens/capuccino.jpg" },
+  { id:'cha-quente', name:'Chá Quente', price:7.60, image: "imagens/cha.jpg" },
+  { id:'bolo-caseiro', name:'Bolo Caseiro Fatia', price:8.70, image: "imagens/caseiro_fatia.jpg" },
+  { id:'bolo-confeitado', name:'Bolo Confeitado Fatia', price:19.80, image: "imagens/confeitado_fatia.jpg" },
+  { id:'bolo-pote', name:'Bolo no Pote', price:18.00, image: "imagens/bolo_pote.jpg" },
+  { id:'pao-queijo', name:'Mini Pão de Queijo (4 unids)', price:9.60, image: "imagens/pao_queijo.jpg" },
+  { id:'panini', name:'Panini (4 unids)', price:16.20, image: "imagens/panini.jpg" },
+  { id:'quiche-cebola', name:'Quiche de Cebola Carmelizada', price:23.10, image: "imagens/quiche_cebola.jpg" },
+  { id:'quiche-caprese', name:'Quiche Caprese', price:23.10, image: "imagens/quiche_caprese.jpg" },
+  { id:'croissant-presunto', name:'Croissant com Presunto e Queijo', price:23.10, image: "imagens/croissant_presunto.jpg" },
+  { id:'croissant-queijo', name:'Croissant com Queijo Branco e Tomate Confit', price:26.00, image: "imagens/croissant_queijo_branco.jpg" },
+  { id:'croissant-nutella', name:'Croissant com Nutella', price:24.00, image: "imagens/croissant_nutella.jpg" },
+  { id:'pao-mel', name:'Pão de Mel', price:9.00, image: "imagens/pao_mel.jpg" },
+  { id:'palha-italiana', name:'Palha Italiana', price:9.00, image: "imagens/palha.jpg" },
+  { id:'brownie', name:'Brownie', price:9.00, image: "imagens/brownie.jpg" },
+  { id:'suspiro', name:'Suspiro (Pacote 40g)', price:15.20, image: "imagens/suspiro.jpg" },
+  { id:'rosa-suspiro', name:'Rosa de Suspiro Recheada com Brigadeiro', price:8.00, image: "imagens/rosa.jpg" }
 ];
 const cart=new Map();
 const fmt=n=>n.toLocaleString(STORE.currency.locale,{style:'currency',currency:STORE.currency.code});
+
 function renderProducts(){
   const wrap=document.getElementById('products'); wrap.innerHTML='';
   PRODUCTS.forEach(p=>{
     const el=document.createElement('div'); el.className='prod';
-    const thumb=p.image?`<div class="thumb"><img src="${p.image}" alt="${p.name}"></div>`:`<div class="thumb">🍪</div>`;
-    el.innerHTML=`${thumb}<div style="min-width:0"><h3>${p.name}</h3><div class="price">${fmt(p.price)}</div></div><div class="spacer"></div><div class="qty" data-id="${p.id}"><button>−</button><input type="number" min="0" step="1" value="0" inputmode="numeric" /><button>+</button></div>`;
+    el.innerHTML=`
+      <div class="thumb">
+        <img src="${p.image}" alt="${p.name}" />
+      </div>
+      <div style="min-width:0">
+        <h3>${p.name}</h3>
+        <div class="price">${fmt(p.price)}</div>
+      </div>
+      <div class="spacer"></div>
+      <div class="qty" data-id="${p.id}">
+        <button>−</button>
+        <input type="number" min="0" step="1" value="0" inputmode="numeric" />
+        <button>+</button>
+      </div>`;
     wrap.appendChild(el);
   });
   wrap.querySelectorAll('.qty').forEach(qty=>{
@@ -157,6 +170,7 @@ function renderProducts(){
     input.addEventListener('input',sync);
   });
 }
+
 function updateCartUI(){
   const list=document.getElementById('cartList'); const emptyHint=document.getElementById('emptyHint');
   const itemsCount=Array.from(cart.values()).reduce((s,i)=>s+i.qty,0); document.getElementById('itemsCount').textContent=itemsCount;
@@ -174,6 +188,7 @@ function updateCartUI(){
   document.getElementById('total').textContent=fmt(subtotal+fee);
   document.getElementById('whatsBtn').disabled=(cart.size===0);
 }
+
 function buildWhatsAppText(){
   const now=new Date(); const orderId=now.toISOString().slice(0,19).replace(/[-:T]/g,'');
   const customer=document.getElementById('customerName').value.trim(); const phone=document.getElementById('customerPhone').value.trim();
@@ -187,9 +202,10 @@ function buildWhatsAppText(){
     `Novo pedido — ${orderId}`, `#${orderId}`, '', 'Itens:', ...lines, '',
     `Subtotal: ${fmt(subtotal)}`, (deliveryMode==='entrega'?`Taxa de entrega: ${fmt(fee)}`:`Entrega: retirada no local`),
     `Total: ${fmt(total)}`, '', (customer?`Cliente: ${customer}`:''), (phone?`Contato: ${phone}`:''), (deliveryMode==='entrega'&&address?`Endereço: ${address}`:''), (notes?`Obs.: ${notes}`:'')
-  ].filter(Boolean).join('\\n');
+  ].filter(Boolean).join('\n');
   return encodeURIComponent(txt);
 }
+
 function init(){
   document.getElementById('storeName').textContent=STORE.name;
   renderProducts(); updateCartUI();
